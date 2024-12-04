@@ -1,7 +1,5 @@
 'use client'
 
-import styles from "../styles/VideoPlayer.module.css";
-
 export const VideoPlayer = ({
     src,
     displayImg,
@@ -10,7 +8,7 @@ export const VideoPlayer = ({
     displayImg?: string;
 }) => {
     return (
-        <div className={styles["video-player"]}>
+        <div>
             <video width={document.body.clientWidth} height={document.body.clientHeight / 4} src={src} controls />
         </div>
     );

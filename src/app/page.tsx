@@ -6,7 +6,7 @@ export default async function Home() {
 
     return (
         <>
-            <main>
+            <main className="px-7">
                 <section>
                     <MoviesGrid movies={movies} />
                 </section>

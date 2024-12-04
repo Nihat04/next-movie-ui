@@ -10,7 +10,11 @@ function MoviesGrid({ movies }: { movies: ArtWork[] }) {
                     <li
                         key={movie.id}
                         className={styles["item"]}
-                        style={{ backgroundImage: `url(${movie.cover})` }}
+                        style={{
+                            backgroundImage: movie.cover
+                                ? `url(${movie.cover})`
+                                : "none",
+                        }}
                     >
                         <Link href={`/mov/${movie.id}`}>
                             <p className={styles["name"]}>{movie.name}</p>
