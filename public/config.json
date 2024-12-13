@@ -285,5 +285,79 @@
                 "name": "Реинкарнация безработного: История о приключениях в другом мире 3"
             }
         ]
+    },
+    {
+        "id": 6,
+        "name": "Хоримия",
+        "cover": "/assets/img/hori.jpg",
+        "year": 2021,
+        "genres": ["сёнэн", "комедия", "повседневность", "романтика", "школа"],
+        "globalType": "Сериал",
+        "type": "Аниме",
+        "episodes": [
+            {
+                "number": 1,
+                "path": "/serieses/horimiya/horimiya_01.mp4"
+            },
+            {
+                "number": 2,
+                "path": "/serieses/horimiya/horimiya_02.mp4"
+            },
+            {
+                "number": 3,
+                "path": "/serieses/horimiya/horimiya_03.mp4"
+            },
+            {
+                "number": 4,
+                "path": "/serieses/horimiya/horimiya_04.mp4"
+            },
+            {
+                "number": 5,
+                "path": "/serieses/horimiya/horimiya_05.mp4"
+            },
+            {
+                "number": 6,
+                "path": "/serieses/horimiya/horimiya_06.mp4"
+            },
+            {
+                "number": 7,
+                "path": "/serieses/horimiya/horimiya_07.mp4"
+            },
+            {
+                "number": 8,
+                "path": "/serieses/horimiya/horimiya_08.mp4"
+            },
+            {
+                "number": 9,
+                "path": "/serieses/horimiya/horimiya_09.mp4"
+            },
+            {
+                "number": 10,
+                "path": "/serieses/horimiya/horimiya_10.mp4"
+            },
+            {
+                "number": 11,
+                "path": "/serieses/horimiya/horimiya_11.mp4"
+            },
+            {
+                "number": 12,
+                "path": "/serieses/horimiya/horimiya_12.mp4"
+            },
+            {
+                "number": 13,
+                "path": "/serieses/horimiya/horimiya_13.mp4"
+            }
+        ],
+        "totalEpisodes": 13,
+        "multipleSeasons": true,
+        "season": 1,
+        "otherSeasons": [
+            {
+                "id": 0,
+                "isUploaded": false,
+                "season": 2,
+                "name": "Хоримия: Отрывки"
+            }
+        ]
     }
 ]
