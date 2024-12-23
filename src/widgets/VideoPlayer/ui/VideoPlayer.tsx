@@ -1,15 +1,23 @@
-'use client'
+"use client";
 
-export const VideoPlayer = ({
-    src,
-    displayImg,
-}: {
-    src: string;
-    displayImg?: string;
-}) => {
+export const VideoPlayer = ({ src }: { src: string }) => {
     return (
-        <div>
-            <video width={document.body.clientWidth} height={document.body.clientHeight / 4} src={src} controls />
+        <div className="overflow-hidden">
+            <video
+                style={{
+                    width: "100dvw",
+                    height: "100dvh",
+                    overflow: "hidden",
+                }}
+                src={
+                    window !== undefined && window.location
+                        ? `${location.origin}/${src}`
+                        : ""
+                }
+            />
+            <div className="">
+
+            </div>
         </div>
     );
 };

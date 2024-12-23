@@ -41,3 +41,8 @@ next-env.d.ts
 
 public/movies*
 public/serieses*
+videos/*
+!videos/*.json
+!videos/*.js
+!videos/*.ts
+public/_next-video

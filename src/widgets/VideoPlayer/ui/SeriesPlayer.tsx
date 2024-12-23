@@ -1,40 +1,34 @@
-'use client'
+"use client";
 
 import "swiper/css";
-import styles from "../styles/SeriesPlayer.module.css";
 
 import { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Episode } from "../../../entities/series";
 
 import { VideoPlayer } from "./VideoPlayer";
 
-export const SeriesPlayer = ({ episodes, displayImg }: { episodes: Episode[], displayImg?: string }) => {
+export const SeriesPlayer = ({ episodes }: { episodes: Episode[] }) => {
     const [currentEpisode, setCurrentEpisdoe] = useState(episodes[0]);
+    const [seriesMenuOpen, setSeriesMenuOpen] = useState<boolean>(false);
 
     return (
-        <div>
-            <div className={styles["video-player"]}>
-                <VideoPlayer src={currentEpisode.path} displayImg={displayImg} />
+        <div className="relative">
+            <div>
+                <VideoPlayer src={currentEpisode.path} />
             </div>
-            <div className={styles["episodes-selector"]}>
-                <Swiper
-                    slidesPerView={8}
-                    spaceBetween={30}
-                    className={styles["episodes__list"]}
-                >
+            <div className="absolute hidden top-0 left-0">
+                <button className="px-5 py-2 bg-sky-600 rounded-lg" onClick={() => setSeriesMenuOpen(!seriesMenuOpen)}>Серии</button>
+                <ul className="hidden">
                     {episodes.map((episode) => (
-                        <SwiperSlide
-                            key={episode.number}
-                            className={styles["episodes__item"]}
-                        >
+                        <li key={episode.number}>
                             <button
+                                className="p-10 bg-sky-300 br-100%"
                                 onClick={() => setCurrentEpisdoe(episode)}
                             >{`Серия ${episode.number}`}</button>
-                        </SwiperSlide>
+                        </li>
                     ))}
-                </Swiper>
+                </ul>
             </div>
         </div>
     );

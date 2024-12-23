@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Header() {
   return (
-    <header className='mb-10 p-5 bg-zinc-800'>
+    <header className='p-5 bg-zinc-800'>
         <nav>
             <ul className="flex gap-5">
                 <Link href={'/folders'}>Папки</Link>
