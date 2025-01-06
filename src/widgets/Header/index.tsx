@@ -19,7 +19,7 @@ const NAV_LINKS: Link[] = [
 
 export default function Header() {
     return (
-        <header className="sticky top-2 m-2 mb-5">
+        <header className="sticky top-2 m-2 mb-5 z-50">
             <div className="navbar bg-base-100 p-2 rounded-2xl">
                 <div className="flex-1">
                     <Link

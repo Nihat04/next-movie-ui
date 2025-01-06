@@ -9,4 +9,5 @@ export interface ArtWork {
     genres: (ArtGenres | string)[];
     globalType: "Фильм" | "Сериал";
     type: ArtTypes | string;
+    description?: string;
 }

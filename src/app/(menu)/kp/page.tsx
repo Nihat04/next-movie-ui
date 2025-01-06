@@ -3,11 +3,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Kinopoisk, Search } from "@/features/kinopoisk";
+import { Search } from "@/features/kinopoisk";
 
 import SearchIcon from "@mui/icons-material/Search";
 import { VertcalGrid } from "@/shared/ui/MoviesGrid";
 import { KpMovieToArtWork } from "@/shared/DTO";
+import Loader from "@/shared/ui/Loader/Loader";
+import fetcher from "@/shared/api/fetcher";
+import useSWR, { mutate } from "swr";
 
 type formParams = {
     search: string;
@@ -15,32 +18,67 @@ type formParams = {
 
 export default function KinopoiskPage() {
     const { register, handleSubmit } = useForm<formParams>();
-    const [searchResult, setSearchResult] = useState<Search | null>(null);
+    const [search, setSearch] = useState<string>("");
     const [page, setPage] = useState<number>(1);
+    const { data, isLoading } = useSWR<Search>(
+        `/api/kp/movie?query=${search}&page=${page}&pageLimit=${30}`,
+        fetcher
+    );
 
     const onSubmit = (data: formParams) => {
-        Kinopoisk.find(data.search, page).then((res) => setSearchResult(res));
+        setSearch(data.search);
+        mutate(`/api/kp/movie?query=${search}&page=${page}&pageLimit=${30}`);
     };
 
-    // const updateSearchResult = () => {
-    //     Kinopoisk.find(data.search, page).then((res) => setSearchResult(res));
-    // };
-
     const nextPage = () => {
-        if (searchResult && searchResult.page < searchResult.pages) {
-            setPage(searchResult.page + 1);
+        if (data && data.page < data.pages) {
+            setPage(data.page + 1);
+            mutate(
+                `/api/kp/movie?query=${search}&page=${page}&pageLimit=${30}`
+            );
         }
     };
 
     const prevPage = () => {
-        if (searchResult && searchResult.page > searchResult.pages) {
-            setPage(searchResult.page - 1);
+        if (data && data.page < data.pages) {
+            setPage(data.page - 1);
+            mutate(
+                `/api/kp/movie?query=${search}&page=${page}&pageLimit=${30}`
+            );
         }
     };
 
+    const paginator = () => {
+        return (
+            <div className="mb-20 flex justify-center">
+                <div className="join">
+                    <button
+                        className={`join-item btn`}
+                        onClick={() => prevPage()}
+                    >
+                        «
+                    </button>
+                    <button className="join-item btn">
+                        {`Страница ${page} из ${data?.pages}`}
+                    </button>
+                    <button
+                        className={`join-item btn `}
+                        onClick={() => nextPage()}
+                    >
+                        »
+                    </button>
+                </div>
+            </div>
+        );
+    };
+
+    if (isLoading) {
+        return <Loader />;
+    }
+
     return (
         <main>
-            <section className="flex justify-center mb-20">
+            <section className="flex justify-center mb-10">
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="flex items-center gap-3"
@@ -57,34 +95,17 @@ export default function KinopoiskPage() {
                 </form>
             </section>
             <section className="mb-20">
-                {searchResult && (
+                {data && data.docs && (
                     <>
+                        {paginator()}
                         <div className="mb-20">
                             <VertcalGrid
-                                movies={searchResult.docs.map((movie) =>
+                                movies={data.docs.map((movie) =>
                                     KpMovieToArtWork(movie)
                                 )}
                             />
                         </div>
-                        <div className="mb-20 flex justify-center">
-                            <div className="join">
-                                <button
-                                    className={`join-item btn`}
-                                    onClick={() => prevPage()}
-                                >
-                                    «
-                                </button>
-                                <button className="join-item btn">
-                                    {`Страница ${page} из ${searchResult?.pages}`}
-                                </button>
-                                <button
-                                    className={`join-item btn `}
-                                    onClick={() => nextPage()}
-                                >
-                                    »
-                                </button>
-                            </div>
-                        </div>
+                        {paginator()}
                     </>
                 )}
             </section>
