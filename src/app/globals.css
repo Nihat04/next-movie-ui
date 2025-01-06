@@ -16,6 +16,12 @@
     }
 }
 
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
 body {
     color: var(--foreground);
     background: var(--background);
@@ -23,5 +29,35 @@ body {
 }
 
 main {
-    margin: 2.5rem 2.5rem 0;
+    margin: 0.5rem 0.5rem 0;
+}
+
+@media (min-width: 640px) {
+    main {
+        margin: 1rem 1rem 0;
+    }
+}
+
+@media (min-width: 768px) {
+    main {
+        margin: 1rem 1rem 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    main {
+        margin: 2rem 2rem 0;
+    }
+}
+
+@media (min-width: 1280px) {
+    main {
+        margin: 2.5rem 2.5rem 0;
+    }
+}
+
+@media (min-width: 1536px) {
+    main {
+        margin: 2.5rem 2.5rem 0;
+    }
 }

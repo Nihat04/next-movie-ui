@@ -1,8 +1,8 @@
 export enum ArtTypes {
-    series = "Сериал",
-    movie = "Фильм",
-    animeSeries = "Аниме",
-    animeMovie = "Аниме фильм",
-    cartoonSeries = "Мультсериал",
-    cartoonMovie = "Мальтфильм",
+    series = "сериал",
+    movie = "фильм",
+    animeSeries = "аниме",
+    animeMovie = "аниме фильм",
+    cartoonSeries = "мультсериал",
+    cartoonMovie = "мультфильм",
 }

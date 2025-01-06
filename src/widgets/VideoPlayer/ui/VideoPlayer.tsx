@@ -1,6 +1,16 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 export const VideoPlayer = ({ src }: { src: string }) => {
+    const [videoSrc, setVideoSrc] = useState<string>("");
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setVideoSrc(`${window.location.origin}/${src}`);
+        }
+    }, [src]);
+
     return (
         <div className="overflow-hidden">
             <video
@@ -9,15 +19,9 @@ export const VideoPlayer = ({ src }: { src: string }) => {
                     height: "100dvh",
                     overflow: "hidden",
                 }}
-                src={
-                    window !== undefined && window.location
-                        ? `${location.origin}/${src}`
-                        : ""
-                }
+                src={videoSrc ? videoSrc : "#"}
+                controls
             />
-            <div className="">
-
-            </div>
         </div>
     );
 };

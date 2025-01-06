@@ -1,7 +1,7 @@
 import { SVGProps } from "@/shared/types/SVGProps";
 import React from "react";
 
-export default function folderIcon({
+export default function FolderIcon({
     fillColor = "none",
     strokeColor = "#000",
 }: SVGProps) {
