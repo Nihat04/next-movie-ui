@@ -2,12 +2,11 @@
 
 import React from "react";
 import useSWR, { mutate } from "swr";
-import axios from "axios";
 
-import { Folder } from "../model";
+import { addArtWorkToFolder, Folder, removeArtWorkFromFolder } from "../model";
+import { ArtWork } from "@/entities/artWork";
 import fetcher from "@/shared/api/fetcher";
 import Loader from "@/shared/ui/Loader/Loader";
-import { ArtWork } from "@/entities/artWork";
 
 import FolderIcon from "@mui/icons-material/Folder";
 import { FolderAction } from "./FolderAction";
@@ -26,39 +25,21 @@ export function AddModal({ artWork }: { artWork: ArtWork }) {
         }
     };
 
-    const updateFolderItems = async (
-        folder: Folder,
-        action: "add" | "remove"
-    ): Promise<boolean> => {
-        const updatedItems =
+    const updateFolder = async (folder: Folder, action: "add" | "remove") => {
+        const res =
             action === "add"
-                ? [
-                      ...(folder.items || []),
-                      { art: artWork, addDate: new Date() },
-                  ]
-                : folder.items?.filter((item) => item.art.id !== artWork.id) ||
-                  null;
-
-        const newFolder: Folder = {
-            ...folder,
-            items: updatedItems,
-        };
-
-        try {
-            await axios.put(`/api/folder/${folder.id}`, newFolder);
-            mutate("/api/folder");
-            return true;
-        } catch {
-            return false;
-        }
+                ? await addArtWorkToFolder(artWork, folder)
+                : await removeArtWorkFromFolder(artWork, folder);
+        mutate("/api/folder");
+        return res;
     };
 
     const addToFolder = async (folder: Folder): Promise<boolean> => {
-        return updateFolderItems(folder, "add");
+        return updateFolder(folder, "add");
     };
 
     const removeFromFolder = async (folder: Folder): Promise<boolean> => {
-        return updateFolderItems(folder, "remove");
+        return updateFolder(folder, "add");
     };
 
     return (

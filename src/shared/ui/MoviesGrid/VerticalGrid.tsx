@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { ArtWork } from "@/entities/artWork";
 
-export function VertcalGrid({ movies }: { movies: ArtWork[] }) {
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+
+export function VertcalGrid({
+    movies,
+    menu,
+}: {
+    movies: ArtWork[];
+    menu?: (artWork: ArtWork) => void;
+}) {
     return (
         <div>
             <ul className="grid gap-[30px] list-none xl:grid-cols-10 lg:grid-cols-6 md:grid-cols-4 grid-cols-2">
@@ -15,6 +23,16 @@ export function VertcalGrid({ movies }: { movies: ArtWork[] }) {
                                 : "none",
                         }}
                     >
+                        {menu && (
+                            <div className="absolute top-2 right-2">
+                                <button
+                                    className="btn btn-circle w-6"
+                                    onClick={() => menu(movie)}
+                                >
+                                    <MoreHorizIcon />
+                                </button>
+                            </div>
+                        )}
                         <Link
                             href={`/movie/${movie.id}`}
                             className="block w-full h-full"
