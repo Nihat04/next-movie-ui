@@ -1,35 +1,58 @@
-import React from "react";
+"use client";
+
+import React, { use } from "react";
 import { notFound } from "next/navigation";
 
 import Image from "next/image";
 
-import { Kinopoisk } from "@/features/kinopoisk";
 import { AddModal } from "@/entities/folder";
-import { Table } from "@/shared/database";
 import { ArtWork } from "@/entities/artWork";
+import fetcher from "@/shared/api/fetcher";
+import useSWR from "swr";
 
-export default async function ArtWorkPage({
+export default function ArtWorkPage({
     params,
 }: {
     params: Promise<{ id: string }>;
 }) {
-    const { id } = await params;
+    const { id } = use(params);
 
     if (!Number(id)) {
         notFound();
     }
-    const intId = Number(id);
-    let artWork;
 
-    try {
-        artWork = await Table.getById<ArtWork>("artWorks", intId);
-    } catch (err) {
-        artWork = await Kinopoisk.getById(Number(id));
+    const { data, isLoading, error } = useSWR<ArtWork>(
+        `/api/kp/movie/${id}`,
+        fetcher
+    );
 
-        if (err instanceof ReferenceError) {
-            Table.create<ArtWork>("artWorks", artWork);
-        }
+    if (error) {
+        return (
+            <div role="alert" className="alert alert-error">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 shrink-0 stroke-current"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                </svg>
+                <span>Ошибка, не удалось найти фильм</span>
+            </div>
+        );
     }
+
+    if (isLoading || !data)
+        return (
+            <div className="absolute inset-0 flex items-center justify-center">
+                <span className="loading loading-ring loading-lg" />
+            </div>
+        );
 
     return (
         <>
@@ -39,22 +62,22 @@ export default async function ArtWorkPage({
                         <div className="">
                             <Image
                                 className="mb-3 w-full sm:w-auto"
-                                src={artWork.cover}
+                                src={data.cover}
                                 alt="постер фильма"
                                 width={300}
                                 height={100}
                             />
-                            <AddModal artWork={artWork} />
+                            <AddModal artWork={data} />
                         </div>
                         <div className="">
                             <h2 className="text-3xl mb-3 text-center font-bold border-b-2 sm:text-left">
-                                {artWork.name}
+                                {data.name}
                             </h2>
                             <p>
-                                год выхода: <b>{artWork.year}</b>
+                                год выхода: <b>{data.year}</b>
                             </p>
                             <p>
-                                Жанры: <b>{artWork.genres.join(", ")}</b>
+                                Жанры: <b>{data.genres.join(", ")}</b>
                             </p>
                         </div>
                     </div>

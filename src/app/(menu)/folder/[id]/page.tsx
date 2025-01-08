@@ -5,6 +5,7 @@ import { Folder, removeArtWorkFromFolder } from "@/entities/folder";
 import fetcher from "@/shared/api/fetcher";
 import Loader from "@/shared/ui/Loader/Loader";
 import { VertcalGrid } from "@/shared/ui/MoviesGrid";
+import { notFound } from "next/navigation";
 import React, { use, useState } from "react";
 import useSWR, { mutate } from "swr";
 
@@ -14,8 +15,37 @@ export default function FolderPage({
     params: Promise<{ id: string }>;
 }) {
     const { id } = use(params);
-    const { data, isLoading } = useSWR<Folder>(`/api/folder/${id}`, fetcher);
+
+    if (!Number(id)) {
+        notFound();
+    }
+
+    const { data, isLoading, error } = useSWR<Folder>(
+        `/api/folder/${id}`,
+        fetcher
+    );
     const [editWork, setEditWork] = useState<ArtWork | null>(null);
+
+    if (error) {
+        return (
+            <div role="alert" className="alert alert-error">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 shrink-0 stroke-current"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                </svg>
+                <span>Ошибка, не удалось найти папку</span>
+            </div>
+        );
+    }
 
     if (isLoading || !data)
         return (
