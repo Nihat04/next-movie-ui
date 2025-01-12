@@ -1,2 +1,2 @@
-export * from "./Movie";
-export * from "./SequelPart";
+export * from './Movie';
+export * from './SequelPart';

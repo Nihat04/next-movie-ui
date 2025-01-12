@@ -1,5 +1,5 @@
-import { ArtGenres } from "./ArtGenres";
-import { ArtTypes } from "./ArtTypes";
+import { ArtGenres } from './ArtGenres';
+import { ArtTypes } from './ArtTypes';
 
 export interface ArtWork {
     id: number;
@@ -7,7 +7,7 @@ export interface ArtWork {
     cover: string;
     year: number;
     genres: (ArtGenres | string)[];
-    globalType: "Фильм" | "Сериал";
+    globalType: 'Фильм' | 'Сериал';
     type: ArtTypes | string;
     description?: string;
 }

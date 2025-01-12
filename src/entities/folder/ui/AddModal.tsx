@@ -1,21 +1,23 @@
-"use client";
+'use client';
 
-import React from "react";
-import useSWR, { mutate } from "swr";
+import React from 'react';
+import useSWR from 'swr';
 
-import { addArtWorkToFolder, Folder, removeArtWorkFromFolder } from "../model";
-import { ArtWork } from "@/entities/artWork";
-import fetcher from "@/shared/api/fetcher";
-import Loader from "@/shared/ui/Loader/Loader";
+import { Folder, FolderType } from '../model';
+import { ArtWork } from '@/entities/artWork';
+import fetcher from '@/shared/api/fetcher';
+import Loader from '@/shared/ui/Loader/Loader';
 
-import FolderIcon from "@mui/icons-material/Folder";
-import { FolderAction } from "./FolderAction";
+import FolderIcon from '@mui/icons-material/Folder';
+import { FolderAction } from './FolderAction';
 
 export function AddModal({ artWork }: { artWork: ArtWork }) {
-    const { data, isLoading } = useSWR<Folder[]>("/api/folder", fetcher);
-
+    const { data, isLoading, mutate } = useSWR<FolderType[]>(
+        '/api/folder',
+        fetcher
+    );
     const changeModal = (status: boolean) => {
-        const el = document.getElementById("folder_add_modal");
+        const el = document.getElementById('folder_add_modal');
         if (el && el instanceof HTMLDialogElement) {
             if (status) {
                 el.showModal();
@@ -25,21 +27,26 @@ export function AddModal({ artWork }: { artWork: ArtWork }) {
         }
     };
 
-    const updateFolder = async (folder: Folder, action: "add" | "remove") => {
-        const res =
-            action === "add"
-                ? await addArtWorkToFolder(artWork, folder)
-                : await removeArtWorkFromFolder(artWork, folder);
-        mutate("/api/folder");
+    const addToFolder = async (folder: FolderType): Promise<boolean> => {
+        const folderInstance = new Folder(folder.id);
+        const res = await folderInstance.addFolderItem(artWork);
+        mutate();
         return res;
     };
 
-    const addToFolder = async (folder: Folder): Promise<boolean> => {
-        return updateFolder(folder, "add");
-    };
+    const removeFromFolder = async (folder: FolderType): Promise<boolean> => {
+        const folderItem = folder.items?.find(
+            (item) => item.artWorkId === artWork.id
+        );
 
-    const removeFromFolder = async (folder: Folder): Promise<boolean> => {
-        return updateFolder(folder, "add");
+        if (folderItem) {
+            const folderInstance = new Folder(folder.id);
+            const res = await folderInstance.removeFolderItem(folderItem.id);
+            mutate();
+            return res;
+        }
+
+        return false;
     };
 
     return (
@@ -63,7 +70,8 @@ export function AddModal({ artWork }: { artWork: ArtWork }) {
                             data?.map((folder) => {
                                 const isAdded = folder.items
                                     ? folder.items.some(
-                                          (item) => item.art.id === artWork.id
+                                          (item) =>
+                                              item.artWork.id === artWork.id
                                       )
                                     : false;
 

@@ -1,2 +1,2 @@
-export * from "./MoviePlayer";
-export * from "./SeriesPlayer";
+export * from './MoviePlayer';
+export * from './SeriesPlayer';

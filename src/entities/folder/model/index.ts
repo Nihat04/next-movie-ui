@@ -1,2 +1,2 @@
-export * from "./types";
-export * from "./folderItemHandler";
+export * from './types';
+export * from './classes';

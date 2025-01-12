@@ -1,2 +1,2 @@
-export * from "./Kinopoisk";
-export * from "./types";
+export * from './Kinopoisk';
+export * from './types';

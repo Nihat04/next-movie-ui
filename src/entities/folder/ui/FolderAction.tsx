@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { Folder } from "../model";
+import { FolderType } from '../model';
 
-import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
 export function FolderAction({
     folder,
     action,
     success = false,
-    className = "",
+    className = '',
 }: {
-    folder: Folder;
-    action: (folder: Folder) => Promise<boolean>;
+    folder: FolderType;
+    action: (folder: FolderType) => Promise<boolean>;
     success?: boolean;
     className?: string;
 }) {
@@ -22,11 +22,15 @@ export function FolderAction({
     const [isSuccess, setIsSuccess] = useState<boolean>(success);
 
     const click = async () => {
-        setIsLoading(true);
-        const actionResult = await action(folder);
-        setIsLoading(false);
+        try {
+            setIsLoading(true);
+            const actionResult = await action(folder);
+            setIsLoading(false);
 
-        if (actionResult) setIsSuccess(!isSuccess);
+            if (actionResult) setIsSuccess(!isSuccess);
+        } catch {
+            setIsLoading(false);
+        }
     };
 
     const getBtnContent = () => {
@@ -47,7 +51,7 @@ export function FolderAction({
         >
             <p className="text-lg font-medium">{folder.name}</p>
             <button
-                className={`btn btn-circle ${isSuccess && "btn-success"}`}
+                className={`btn btn-circle ${isSuccess && 'btn-success'}`}
                 onClick={click}
             >
                 {getBtnContent()}

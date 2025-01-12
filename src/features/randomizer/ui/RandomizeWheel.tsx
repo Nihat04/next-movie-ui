@@ -1,12 +1,12 @@
-import { motion } from "framer-motion";
-import React, { useState } from "react";
+import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 
 export function RandomizeWheel() {
     const [segments, setSegments] = useState([
-        { color: "bg-red-500", label: "Segment 1" },
-        { color: "bg-blue-500", label: "Segment 2" },
-        { color: "bg-green-500", label: "Segment 3" },
-        { color: "bg-yellow-500", label: "Segment 4" },
+        { color: 'bg-red-500', label: 'Segment 1' },
+        { color: 'bg-blue-500', label: 'Segment 2' },
+        { color: 'bg-green-500', label: 'Segment 3' },
+        { color: 'bg-yellow-500', label: 'Segment 4' },
     ]);
 
     // Function to add a new segment
@@ -36,7 +36,7 @@ export function RandomizeWheel() {
             <button
                 onClick={() =>
                     addSegment(
-                        "bg-purple-500",
+                        'bg-purple-500',
                         `Segment ${segments.length + 1}`
                     )
                 }

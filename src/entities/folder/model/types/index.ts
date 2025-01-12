@@ -1,2 +1,2 @@
-export * from "./Folder";
-export * from "./FolderItem";
+export * from './FolderType';
+export * from './FolderItemType';

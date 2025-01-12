@@ -1,2 +1,2 @@
-export * from "./SmallFolder";
-export * from "./AddModal";
+export * from './SmallFolder';
+export * from './AddModal';

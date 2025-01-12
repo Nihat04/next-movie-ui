@@ -1,17 +1,19 @@
-import React from "react";
+import React from 'react';
 
-import FolderIcon from "@/shared/assets/svg/FolderIcon";
-import { Folder } from "../model/types";
-import Link from "next/link";
+import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
+import { FolderType } from '../model/types';
+import Link from 'next/link';
 
-export default function SmallFolder({ folder }: { folder: Folder }) {
+export default function SmallFolder({ folder }: { folder: FolderType }) {
     return (
         <Link href={`/folder/${folder.id}`}>
-            <div className="p-5 bg-white/[.06] rounded-lg">
-                <div className="h-20 w-full flex justify-center">
-                    <FolderIcon />
+            <div className="btn w-full h-40 p-5 bg-base-300 rounded-lg shadow-xl">
+                <div className=" w-full h-20 flex justify-center">
+                    <FolderOutlinedIcon
+                        sx={{ width: '100%', height: '100%' }}
+                    />
                 </div>
-                <p className="font-bold text-center">{folder.name}</p>
+                <p className="font-bold text-center text-xl">{folder.name}</p>
             </div>
         </Link>
     );

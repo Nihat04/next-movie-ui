@@ -1,5 +1,5 @@
-import { ArtWork } from "@/entities/artWork";
-import { Episode } from "../types";
+import { ArtWork } from '@/entities/artWork';
+import { Episode } from '../types';
 
 type SeasonLink = {
     id: number;

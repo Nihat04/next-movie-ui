@@ -1,1 +1,1 @@
-export * from "./KpMovieToArtWork";
+export * from './KpMovieToArtWork';

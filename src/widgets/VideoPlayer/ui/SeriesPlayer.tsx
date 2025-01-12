@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import "swiper/css";
+import 'swiper/css';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import { Episode } from "../../../entities/series";
+import { Episode } from '../../../entities/series';
 
-import { VideoPlayer } from "./VideoPlayer";
+import { VideoPlayer } from './VideoPlayer';
 
 export const SeriesPlayer = ({ episodes }: { episodes: Episode[] }) => {
     const [currentEpisode, setCurrentEpisdoe] = useState(episodes[0]);
@@ -18,7 +18,12 @@ export const SeriesPlayer = ({ episodes }: { episodes: Episode[] }) => {
                 <VideoPlayer src={currentEpisode.path} />
             </div>
             <div className="absolute hidden top-0 left-0">
-                <button className="px-5 py-2 bg-sky-600 rounded-lg" onClick={() => setSeriesMenuOpen(!seriesMenuOpen)}>Серии</button>
+                <button
+                    className="px-5 py-2 bg-sky-600 rounded-lg"
+                    onClick={() => setSeriesMenuOpen(!seriesMenuOpen)}
+                >
+                    Серии
+                </button>
                 <ul className="hidden">
                     {episodes.map((episode) => (
                         <li key={episode.number}>

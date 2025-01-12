@@ -1,2 +1,2 @@
-export * from "./Episode";
-export * from "./Series";
+export * from './Episode';
+export * from './Series';

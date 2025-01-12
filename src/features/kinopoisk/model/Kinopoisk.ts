@@ -1,6 +1,6 @@
-import serverApi from "@/shared/api/instances/server";
-import { KpMovieToArtWork } from "@/shared/DTO";
-import { ArtWork } from "@/entities/artWork";
+import serverApi from '@/shared/api/instances/server';
+import { KpMovieToArtWork } from '@/shared/DTO';
+import { ArtWork } from '@/entities/artWork';
 
 export class Kinopoisk {
     static async find(name: string, page: number, pageLimit: number = 30) {

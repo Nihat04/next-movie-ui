@@ -1,4 +1,4 @@
-import { KpMovie } from "./Movie";
+import { KpMovie } from './Movie';
 
 export type Search = {
     docs: KpMovie[];
