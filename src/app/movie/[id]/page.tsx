@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 
 import Image from 'next/image';
 
-import { AddModal } from '@/entities/folder';
+import { FolderAddModal } from '@/entities/folder';
 import { ArtWork } from '@/entities/artWork';
 import fetcher from '@/shared/api/fetcher';
 import useSWR from 'swr';
@@ -70,9 +70,9 @@ export default function ArtWorkPage({
                                 width={300}
                                 height={100}
                             />
-                            <AddModal artWork={data} />
+                            <FolderAddModal artWork={data} />
                         </div>
-                        <div className="">
+                        <div className="flex flex-col gap-2">
                             <h2 className="text-3xl mb-3 text-center font-bold border-b-2 sm:text-left">
                                 {data.name}
                             </h2>
@@ -83,9 +83,12 @@ export default function ArtWorkPage({
                                 Жанры: <b>{data.genres.join(', ')}</b>
                             </p>
                             {data.description && (
-                                <p>
-                                    описание: <b>{data.description}</b>
-                                </p>
+                                <div>
+                                    <p>Описание: </p>
+                                    <div className="p-2 w-96 bg-base-300 rounded-lg">
+                                        <p>{data.description}</p>
+                                    </div>
+                                </div>
                             )}
                         </div>
                     </div>

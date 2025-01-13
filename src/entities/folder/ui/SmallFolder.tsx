@@ -4,7 +4,7 @@ import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import { FolderType } from '../model/types';
 import Link from 'next/link';
 
-export default function SmallFolder({ folder }: { folder: FolderType }) {
+export function SmallFolder({ folder }: { folder: FolderType }) {
     return (
         <Link href={`/folder/${folder.id}`}>
             <div className="btn w-full h-40 p-5 bg-base-300 rounded-lg shadow-xl">

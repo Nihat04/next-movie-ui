@@ -10,7 +10,6 @@ export async function DELETE(
     const id = Number((await params).id);
 
     try {
-        console.log(id);
         await table.delete(id);
 
         return new Response(null, { status: 200 });

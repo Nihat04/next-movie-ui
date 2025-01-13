@@ -1,16 +1,19 @@
 import { ArtWork } from '@/entities/artWork';
 import { FolderType } from '../types';
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 export class Folder {
     private id: number;
-    private axiosInstance = axios.create({
-        baseURL: `/api/folder`,
-    });
+    private axiosInstance: AxiosInstance;
 
     constructor(id: number) {
         this.id = id;
+        this.axiosInstance = axios.create({
+            baseURL: `/api/folder`,
+        });
+        console.log(this.id);
     }
+
     async get(): Promise<FolderType> {
         return (await this.axiosInstance.get(`/${this.id}`)).data;
     }
@@ -35,7 +38,8 @@ export class Folder {
         return false;
     }
 
-    async deleteFolder() {
-        return (await this.axiosInstance.delete(`/${this.id}`)).data;
+    static async deleteFolder(id: number) {
+        'use server';
+        await axios.delete(`/api/folder/${id}`);
     }
 }

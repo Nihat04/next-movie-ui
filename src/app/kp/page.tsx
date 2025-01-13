@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Drawer } from '@mui/material';
 
-import Loader from '@/shared/ui/Loader/Loader';
+import Loader from '@/widgets/Loader/Loader';
 import fetcher from '@/shared/api/fetcher';
 import { Search } from '@/features/kinopoisk';
 import { KpMovieToArtWork } from '@/shared/DTO';
@@ -31,7 +31,7 @@ export default function KinopoiskPage() {
     const [filtersMenu, setFiltersMenu] = useState(false);
 
     const { data, isLoading, mutate } = useSWR<Search>(
-        `/api/kp/movie?query=${search}&page=${page}&pageLimit=${30}`,
+        `/api/kp/movie/search?query=${search}&page=${page}&pageLimit=${30}`,
         fetcher
     );
 

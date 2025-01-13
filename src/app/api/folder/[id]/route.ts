@@ -70,7 +70,8 @@ export async function DELETE(
     const id = Number((await params).id);
 
     try {
-        table.delete(id);
+        await Table.query(`DELETE FROM folderitems WHERE folderId = ${id};`);
+        await table.delete(id);
 
         return new Response(null, { status: 200 });
     } catch (error) {

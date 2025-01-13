@@ -5,11 +5,9 @@ import React, { use } from 'react';
 import { notFound } from 'next/navigation';
 
 import fetcher from '@/shared/api/fetcher';
-import Loader from '@/shared/ui/Loader/Loader';
-import { FolderType } from '@/entities/folder';
+import Loader from '@/widgets/Loader/Loader';
+import { FolderItemMenu, FolderMenu, FolderType } from '@/entities/folder';
 import { Grid, VerticalPoster } from '@/shared/ui/Grid';
-import { EditFolderMenu } from '@/entities/folder/ui/EditFolderMenu';
-import { FolderItemMenu } from '@/entities/folder/ui/FolderItemMenu';
 
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 
@@ -19,7 +17,8 @@ export default function FolderPage({
     params: Promise<{ id: string }>;
 }) {
     const { id } = use(params);
-    if (!Number(id)) {
+    const numberId = Number(id);
+    if (!numberId) {
         notFound();
     }
     const { data, isLoading, error } = useSWR<FolderType>(
@@ -48,7 +47,7 @@ export default function FolderPage({
             <main>
                 <section className="mb-10 flex justify-center sm:justify-start items-center gap-2">
                     <h2 className="text-6xl font-bold">{data.name}</h2>
-                    <EditFolderMenu />
+                    <FolderMenu folderId={numberId} />
                 </section>
                 <section>
                     {data.items && (

@@ -1,5 +1,5 @@
 import { ArtWork } from '@/entities/artWork';
-import kinopoiskApi from '@/shared/api/instances/kinopoisk';
+import { kinopoiskInstance as kinopoiskApi } from '@/shared/api';
 import { Table } from '@/shared/database';
 import { KpMovieToArtWork } from '@/shared/DTO';
 

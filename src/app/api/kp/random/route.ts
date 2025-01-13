@@ -1,4 +1,4 @@
-import kinopoiskApi from '@/shared/api/instances/kinopoisk';
+import { kinopoiskInstance as kinopoiskApi } from '@/shared/api';
 
 export async function GET() {
     try {

@@ -3,10 +3,11 @@ import { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
+    const query = searchParams.get('query');
     const page = searchParams.get('page');
     const pageLimit = searchParams.get('pageLimit');
 
-    if (!page || !pageLimit) {
+    if (!query || !page || !pageLimit) {
         return new Response(
             JSON.stringify({ error: 'all parameters is required' }),
             { status: 400 }
@@ -14,8 +15,8 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-        const response = await await kinopoiskApi.get(`/movie`, {
-            params: { page, limit: pageLimit },
+        const response = await await kinopoiskApi.get(`/movie/search`, {
+            params: { page, limit: pageLimit, query: query },
         });
         return new Response(JSON.stringify(response.data), { status: 200 });
     } catch (error) {

@@ -3,15 +3,16 @@
 import React from 'react';
 import useSWR from 'swr';
 
+import fetcher from '@/shared/api/fetcher';
 import { Folder, FolderType } from '../model';
 import { ArtWork } from '@/entities/artWork';
-import fetcher from '@/shared/api/fetcher';
-import Loader from '@/shared/ui/Loader/Loader';
-
-import FolderIcon from '@mui/icons-material/Folder';
 import { FolderAction } from './FolderAction';
 
-export function AddModal({ artWork }: { artWork: ArtWork }) {
+import Loader from '@/widgets/Loader/Loader';
+
+import FolderIcon from '@mui/icons-material/Folder';
+
+export function FolderAddModal({ artWork }: { artWork: ArtWork }) {
     const { data, isLoading, mutate } = useSWR<FolderType[]>(
         '/api/folder',
         fetcher

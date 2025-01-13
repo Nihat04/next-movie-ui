@@ -10,4 +10,6 @@ export interface ArtWork {
     globalType: 'Фильм' | 'Сериал';
     type: ArtTypes | string;
     description?: string;
+    kpRating: number;
+    knRating: number;
 }

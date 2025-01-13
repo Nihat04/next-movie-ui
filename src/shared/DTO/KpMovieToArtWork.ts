@@ -8,9 +8,11 @@ export function KpMovieToArtWork(movie: KpMovie): ArtWork {
         cover: getCover(movie),
         globalType: movie.isSeries ? 'Сериал' : 'Фильм',
         type: getType(movie.type, movie.isSeries),
-        genres: movie.genres.map((genre) => genre.name),
+        genres: movie.genres ? movie.genres.map((genre) => genre.name) : [],
         year: movie.year,
         description: movie.description,
+        kpRating: movie.rating.kp,
+        knRating: 0,
     };
 }
 

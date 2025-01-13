@@ -4,6 +4,7 @@ import React, { ReactElement } from 'react';
 import LocalMoviesRoundedIcon from '@mui/icons-material/LocalMoviesRounded';
 import FolderIcon from '@mui/icons-material/Folder';
 import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
+import BackButton from './ui/BackButton';
 
 type Link = {
     label: string;
@@ -21,6 +22,7 @@ export default function Header() {
     return (
         <header className="sticky top-2 m-2 mb-5 z-50">
             <div className="navbar bg-slate-200 dark:bg-base-100 p-2 rounded-2xl">
+                <BackButton />
                 <div className="flex-1">
                     <Link
                         href="/"

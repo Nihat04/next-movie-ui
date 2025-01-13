@@ -12,4 +12,12 @@ export type KpMovie = {
     poster?: { previewUrl: string; url: string };
     isSeries: boolean;
     year: number;
+    rating: {
+        kp: number;
+        imbd: number;
+        tmdb: number;
+        filmCritics: number;
+        russianFilmCritics: number;
+        await: number;
+    };
 };

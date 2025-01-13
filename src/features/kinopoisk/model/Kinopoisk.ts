@@ -1,4 +1,4 @@
-import serverApi from '@/shared/api/instances/server';
+import { serverInstance as serverApi } from '@/shared/api';
 import { KpMovieToArtWork } from '@/shared/DTO';
 import { ArtWork } from '@/entities/artWork';
 

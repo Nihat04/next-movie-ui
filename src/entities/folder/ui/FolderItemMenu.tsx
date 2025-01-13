@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { FolderItem, FolderItemType } from '../model';
+import { FolderItemType } from '../model';
 
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import axios from 'axios';
+import { mutate } from 'swr';
 
 export function FolderItemMenu({ folderItem }: { folderItem: FolderItemType }) {
-    const folderItemInstance = new FolderItem(folderItem);
-
     const changeModal = (status: boolean) => {
         const el = document.getElementById('folderItem_edit_modal');
         if (el && el instanceof HTMLDialogElement) {
@@ -19,6 +19,12 @@ export function FolderItemMenu({ folderItem }: { folderItem: FolderItemType }) {
                 el.close();
             }
         }
+    };
+
+    const deleteItem = async () => {
+        await axios.delete(`/api/folder/item/${folderItem.id}`);
+        changeModal(false);
+        mutate(`/api/folder/${folderItem.folderId}`);
     };
 
     return (
@@ -72,7 +78,7 @@ export function FolderItemMenu({ folderItem }: { folderItem: FolderItemType }) {
                                 <li>
                                     <button
                                         className="btn btn-sm btn-outline btn-error"
-                                        onClick={folderItemInstance.delete}
+                                        onClick={deleteItem}
                                     >
                                         Удалить
                                         <DeleteOutlinedIcon

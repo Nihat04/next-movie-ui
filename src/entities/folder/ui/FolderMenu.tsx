@@ -1,10 +1,16 @@
+'use client';
+
 import React from 'react';
 
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import CasinoOutlinedIcon from '@mui/icons-material/CasinoOutlined';
+import { serverInstance } from '@/shared/api';
+import { useRouter } from 'next/navigation';
 
-export function EditFolderMenu() {
+export function FolderMenu({ folderId }: { folderId: number }) {
+    const router = useRouter();
+
     const changeModal = (status: boolean, modalName: string) => {
         const el = document.getElementById(modalName);
         if (el && el instanceof HTMLDialogElement) {
@@ -14,6 +20,11 @@ export function EditFolderMenu() {
                 el.close();
             }
         }
+    };
+
+    const deleteFolder = () => {
+        serverInstance.delete(`/api/folder/${folderId}`);
+        router.push('/folder');
     };
 
     return (
@@ -53,7 +64,10 @@ export function EditFolderMenu() {
                                     </button>
                                 </li>
                                 <li>
-                                    <button className="btn btn-sm btn-outline justify-between text-[#DAA520] dark:text-[#FFD700]">
+                                    <button
+                                        className="btn btn-sm btn-outline justify-between text-[#DAA520] dark:text-[#FFD700]"
+                                        onClick={() => alert('В разработке...')}
+                                    >
                                         Открыть в колесе удачи
                                         <CasinoOutlinedIcon />
                                     </button>
@@ -61,7 +75,10 @@ export function EditFolderMenu() {
                             </ul>
                             <ul className="menu bg-base-200 rounded-box w-full">
                                 <li>
-                                    <button className="btn btn-sm btn-outline btn-error">
+                                    <button
+                                        className="btn btn-sm btn-outline btn-error"
+                                        onClick={deleteFolder}
+                                    >
                                         Удалить
                                         <DeleteOutlinedIcon
                                             sx={{ marginLeft: 'auto' }}
