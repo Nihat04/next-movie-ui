@@ -8,22 +8,14 @@ import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import axios from 'axios';
 import { mutate } from 'swr';
+import { useModal } from '@/shared/model';
 
 export function FolderItemMenu({ folderItem }: { folderItem: FolderItemType }) {
-    const changeModal = (status: boolean) => {
-        const el = document.getElementById('folderItem_edit_modal');
-        if (el && el instanceof HTMLDialogElement) {
-            if (status) {
-                el.showModal();
-            } else {
-                el.close();
-            }
-        }
-    };
+    const modal = useModal(`folderItem_edit_modal_${folderItem.id}`);
 
     const deleteItem = async () => {
         await axios.delete(`/api/folder/item/${folderItem.id}`);
-        changeModal(false);
+        modal.close();
         mutate(`/api/folder/${folderItem.folderId}`);
     };
 
@@ -32,7 +24,7 @@ export function FolderItemMenu({ folderItem }: { folderItem: FolderItemType }) {
             <div className="absolute top-2 right-2">
                 <button
                     className="btn btn-circle w-6"
-                    onClick={() => changeModal(true)}
+                    onClick={() => modal.open()}
                 >
                     <MoreHorizIcon />
                 </button>
@@ -40,7 +32,7 @@ export function FolderItemMenu({ folderItem }: { folderItem: FolderItemType }) {
 
             <dialog
                 className="modal modal-bottom sm:modal-middle"
-                id="folderItem_edit_modal"
+                id={`folderItem_edit_modal_${folderItem.id}`}
             >
                 <div className="modal-box">
                     <div className="">

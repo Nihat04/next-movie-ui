@@ -16,8 +16,9 @@ export default function ArtWorkPage({
     params: Promise<{ id: string }>;
 }) {
     const { id } = use(params);
+    const numberId = Number(id);
 
-    if (!Number(id)) {
+    if (!numberId) {
         notFound();
     }
 
@@ -70,26 +71,27 @@ export default function ArtWorkPage({
                                 width={300}
                                 height={100}
                             />
-                            <FolderAddModal artWork={data} />
+                            <FolderAddModal artWorkId={numberId} />
                         </div>
                         <div className="flex flex-col gap-2">
                             <h2 className="text-3xl mb-3 text-center font-bold border-b-2 sm:text-left">
                                 {data.name}
                             </h2>
+                            {data.description && (
+                                <div className="text-gray-400 p-2 bg-base-300 rounded-lg">
+                                    <p>{data.description}</p>
+                                </div>
+                            )}
                             <p>
                                 год выхода: <b>{data.year}</b>
                             </p>
                             <p>
-                                Жанры: <b>{data.genres.join(', ')}</b>
+                                жанры: <b>{data.genres.join(', ')}</b>
                             </p>
-                            {data.description && (
-                                <div>
-                                    <p>Описание: </p>
-                                    <div className="p-2 w-96 bg-base-300 rounded-lg">
-                                        <p>{data.description}</p>
-                                    </div>
-                                </div>
-                            )}
+                            <p>
+                                рейтинги: Кинопоиск - <b>{data.kpRating}</b> |
+                                KinoNext - <b>{data.knRating}</b>
+                            </p>
                         </div>
                     </div>
                 </section>

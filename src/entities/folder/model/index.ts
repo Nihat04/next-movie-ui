@@ -1,2 +1,8 @@
 export * from './types';
-export * from './classes';
+
+export {
+    getFolder,
+    addFolderItem,
+    deleteFolderItem,
+    deleteFolder,
+} from './actions';

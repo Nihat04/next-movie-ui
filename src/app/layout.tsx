@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/widgets/Header';
-import { Suspense } from 'react';
 
 export const metadata: Metadata = {
     title: 'Kino Next',
@@ -15,13 +14,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <Suspense>
-            <html lang="en">
-                <body>
-                    <Header />
-                    <main>{children}</main>
-                </body>
-            </html>
-        </Suspense>
+        <html lang="en">
+            <body>
+                <Header />
+                <main>{children}</main>
+            </body>
+        </html>
     );
 }

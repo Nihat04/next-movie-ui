@@ -5,6 +5,7 @@ import LocalMoviesRoundedIcon from '@mui/icons-material/LocalMoviesRounded';
 import FolderIcon from '@mui/icons-material/Folder';
 import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
 import BackButton from './ui/BackButton';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 
 type Link = {
     label: string;
@@ -13,9 +14,10 @@ type Link = {
 };
 
 const NAV_LINKS: Link[] = [
-    { label: 'Папки', path: '/folder', icon: <FolderIcon /> },
-    { label: 'Рулетка', path: '/roulette', icon: <CasinoRoundedIcon /> },
     { label: 'Кинопоиск', path: '/kp', icon: <LocalMoviesRoundedIcon /> },
+    { label: 'Рулетка', path: '/roulette', icon: <CasinoRoundedIcon /> },
+    { label: 'Папки', path: '/folder', icon: <FolderIcon /> },
+    { label: 'Профиль', path: '/profile', icon: <PersonRoundedIcon /> },
 ];
 
 export default function Header() {
@@ -31,8 +33,8 @@ export default function Header() {
                         Kino Next
                     </Link>
                 </div>
-                <nav className="flex-none">
-                    <ul className="menu menu-horizontal bg-base-200 rounded-box">
+                <nav className="fixed px-3 w-screen bottom-3 left-1/2 -translate-x-1/2 sm:static sm:w-auto sm:translate-x-0 flex-none">
+                    <ul className="menu w-full menu-horizontal bg-base-200 rounded-box justify-between">
                         {NAV_LINKS.map((link, index) => (
                             <li key={index}>
                                 <Link href={link.path}>{link.icon}</Link>

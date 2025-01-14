@@ -4,15 +4,15 @@ import React from 'react';
 import useSWR from 'swr';
 
 import fetcher from '@/shared/api/fetcher';
-import { Folder, FolderType } from '../model';
-import { ArtWork } from '@/entities/artWork';
+import { FolderType } from '../model';
+import { addFolderItem, deleteFolderItem } from '../model';
 import { FolderAction } from './FolderAction';
 
 import Loader from '@/widgets/Loader/Loader';
 
 import FolderIcon from '@mui/icons-material/Folder';
 
-export function FolderAddModal({ artWork }: { artWork: ArtWork }) {
+export function FolderAddModal({ artWorkId }: { artWorkId: number }) {
     const { data, isLoading, mutate } = useSWR<FolderType[]>(
         '/api/folder',
         fetcher
@@ -29,20 +29,18 @@ export function FolderAddModal({ artWork }: { artWork: ArtWork }) {
     };
 
     const addToFolder = async (folder: FolderType): Promise<boolean> => {
-        const folderInstance = new Folder(folder.id);
-        const res = await folderInstance.addFolderItem(artWork);
+        const res = await addFolderItem(folder.id, artWorkId);
         mutate();
         return res;
     };
 
     const removeFromFolder = async (folder: FolderType): Promise<boolean> => {
         const folderItem = folder.items?.find(
-            (item) => item.artWorkId === artWork.id
+            (item) => item.artWorkId === artWorkId
         );
 
         if (folderItem) {
-            const folderInstance = new Folder(folder.id);
-            const res = await folderInstance.removeFolderItem(folderItem.id);
+            const res = await deleteFolderItem(folderItem.id);
             mutate();
             return res;
         }
@@ -72,7 +70,7 @@ export function FolderAddModal({ artWork }: { artWork: ArtWork }) {
                                 const isAdded = folder.items
                                     ? folder.items.some(
                                           (item) =>
-                                              item.artWork.id === artWork.id
+                                              item.artWork.id === artWorkId
                                       )
                                     : false;
 
