@@ -29,35 +29,35 @@ body {
 }
 
 main {
-    margin: 0.5rem 0.5rem 0;
+    margin: 0.5rem 0.5rem 5rem;
 }
 
 @media (min-width: 640px) {
     main {
-        margin: 1rem 1rem 0;
+        margin: 1rem 1rem;
     }
 }
 
 @media (min-width: 768px) {
     main {
-        margin: 1rem 1rem 0;
+        margin: 1rem 1rem;
     }
 }
 
 @media (min-width: 1024px) {
     main {
-        margin: 2rem 2rem 0;
+        margin: 2rem 2rem;
     }
 }
 
 @media (min-width: 1280px) {
     main {
-        margin: 2.5rem 2.5rem 0;
+        margin: 2.5rem 2.5rem;
     }
 }
 
 @media (min-width: 1536px) {
     main {
-        margin: 2.5rem 2.5rem 0;
+        margin: 2.5rem 2.5rem;
     }
 }
