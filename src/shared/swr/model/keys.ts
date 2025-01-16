@@ -1,3 +1,5 @@
+const BASE_URL = process.env.NEXT_PUBLIC_API;
+
 export const foldersKey = () => '/api/folder';
 
 export const folderKey = (id: number) => `/api/folder/${id}`;
