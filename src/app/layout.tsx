@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/widgets/Header';
+import { SWRProvider } from '@/shared/swr';
 
 export const metadata: Metadata = {
     title: 'Kino Next',
@@ -14,11 +15,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
-            <body>
-                <Header />
-                <main>{children}</main>
-            </body>
-        </html>
+        <SWRProvider>
+            <html lang="en">
+                <body>
+                    <Header />
+                    <main>{children}</main>
+                </body>
+            </html>
+        </SWRProvider>
     );
 }

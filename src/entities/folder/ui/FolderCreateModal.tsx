@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { serverInstance } from '@/shared/api';
 import { useForm } from 'react-hook-form';
-import { mutate } from 'swr';
+
+import { serverInstance } from '@/shared/api';
+import { mutateFolders } from '@/shared/swr';
 
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import { useModal } from '@/shared/model';
 
 type formProps = {
     folderName: string;
@@ -12,31 +14,21 @@ type formProps = {
 
 export function FolderCreateModal() {
     const { register, handleSubmit } = useForm<formProps>();
+    const modal = useModal('create_modal');
 
     const onSubmit = (data: formProps) => {
         serverInstance
             .post('/api/folder/', {
                 name: data.folderName,
             })
-            .then(() => (mutate('api/folder'), changeModal(false)));
-    };
-
-    const changeModal = (status: boolean) => {
-        const el = document.getElementById('create_modal');
-        if (el && el instanceof HTMLDialogElement) {
-            if (status) {
-                el.showModal();
-            } else {
-                el.close();
-            }
-        }
+            .then(() => (mutateFolders(), modal.close()));
     };
 
     return (
         <>
             <button
                 className="btn btn-ghost btn-circle w-20 h-20"
-                onClick={() => changeModal(true)}
+                onClick={modal.open}
                 title="Создать папку"
             >
                 <AddCircleOutlineRoundedIcon
@@ -68,7 +60,7 @@ export function FolderCreateModal() {
                             <button
                                 className="btn"
                                 type="reset"
-                                onClick={() => changeModal(false)}
+                                onClick={modal.close}
                             >
                                 Закрыть
                             </button>

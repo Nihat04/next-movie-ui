@@ -4,12 +4,12 @@ import React from 'react';
 import useSWR from 'swr';
 
 import { FolderCreateModal, FolderType, SmallFolder } from '@/entities/folder';
-import fetcher from '@/shared/api/fetcher';
 
 import Loader from '@/widgets/Loader/Loader';
+import { foldersKey } from '@/shared/swr';
 
 export default function FoldersPage() {
-    const { data, isLoading } = useSWR<FolderType[]>('api/folder', fetcher);
+    const { data, isLoading } = useSWR<FolderType[]>(foldersKey());
 
     if (isLoading)
         return (

@@ -3,7 +3,6 @@
 import React from 'react';
 import useSWR from 'swr';
 
-import fetcher from '@/shared/api/fetcher';
 import { FolderType } from '../model';
 import { addFolderItem, deleteFolderItem } from '../model';
 import { FolderAction } from './FolderAction';
@@ -11,22 +10,12 @@ import { FolderAction } from './FolderAction';
 import Loader from '@/widgets/Loader/Loader';
 
 import FolderIcon from '@mui/icons-material/Folder';
+import { foldersKey } from '@/shared/swr';
+import { useModal } from '@/shared/model';
 
 export function FolderAddModal({ artWorkId }: { artWorkId: number }) {
-    const { data, isLoading, mutate } = useSWR<FolderType[]>(
-        '/api/folder',
-        fetcher
-    );
-    const changeModal = (status: boolean) => {
-        const el = document.getElementById('folder_add_modal');
-        if (el && el instanceof HTMLDialogElement) {
-            if (status) {
-                el.showModal();
-            } else {
-                el.close();
-            }
-        }
-    };
+    const { data, isLoading, mutate } = useSWR<FolderType[]>(foldersKey());
+    const modal = useModal('folder_add_modal');
 
     const addToFolder = async (folder: FolderType): Promise<boolean> => {
         const res = await addFolderItem(folder.id, artWorkId);
@@ -50,7 +39,7 @@ export function FolderAddModal({ artWorkId }: { artWorkId: number }) {
 
     return (
         <>
-            <button className="btn w-full" onClick={() => changeModal(true)}>
+            <button className="btn w-full" onClick={modal.open}>
                 Добавить в папку
                 <FolderIcon />
             </button>

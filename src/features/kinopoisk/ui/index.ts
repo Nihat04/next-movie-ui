@@ -1,0 +1,1 @@
+export { KpSearch } from './KpSearch';

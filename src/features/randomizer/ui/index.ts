@@ -1,1 +1,1 @@
-export * from './RandomizeWheel';
+export * from './WheelOfFortune';

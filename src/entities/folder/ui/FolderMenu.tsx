@@ -1,26 +1,19 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
+
+import { serverInstance } from '@/shared/api';
+import { useModal } from '@/shared/model';
 
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import CasinoOutlinedIcon from '@mui/icons-material/CasinoOutlined';
-import { serverInstance } from '@/shared/api';
-import { useRouter } from 'next/navigation';
 
 export function FolderMenu({ folderId }: { folderId: number }) {
     const router = useRouter();
-
-    const changeModal = (status: boolean, modalName: string) => {
-        const el = document.getElementById(modalName);
-        if (el && el instanceof HTMLDialogElement) {
-            if (status) {
-                el.showModal();
-            } else {
-                el.close();
-            }
-        }
-    };
+    const editModal = useModal('folder_edit_modal');
+    const renameModal = useModal('folder_rename_modal');
 
     const deleteFolder = () => {
         serverInstance.delete(`/api/folder/${folderId}`);
@@ -31,7 +24,7 @@ export function FolderMenu({ folderId }: { folderId: number }) {
         <div>
             <button
                 className="btn btn-circle btn-outline"
-                onClick={() => changeModal(true, 'folder_edit_modal')}
+                onClick={editModal.open}
             >
                 <BorderColorIcon />
             </button>
@@ -50,14 +43,8 @@ export function FolderMenu({ folderId }: { folderId: number }) {
                                     <button
                                         className="btn btn-sm btn-outline justify-start"
                                         onClick={() => (
-                                            changeModal(
-                                                false,
-                                                'folder_edit_modal'
-                                            ),
-                                            changeModal(
-                                                true,
-                                                'folder_rename_modal'
-                                            )
+                                            editModal.close(),
+                                            renameModal.open()
                                         )}
                                     >
                                         Переименовать
@@ -116,9 +103,7 @@ export function FolderMenu({ folderId }: { folderId: number }) {
                             <button
                                 className="btn"
                                 type="reset"
-                                onClick={() =>
-                                    changeModal(false, 'folder_rename_modal')
-                                }
+                                onClick={renameModal.close}
                             >
                                 Закрыть
                             </button>

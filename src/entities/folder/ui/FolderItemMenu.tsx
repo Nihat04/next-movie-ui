@@ -2,13 +2,15 @@ import React from 'react';
 
 import { FolderItemType } from '../model';
 
+import axios from 'axios';
+
+import { useModal } from '@/shared/model';
+import { mutateFolder } from '@/shared/swr';
+
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import axios from 'axios';
-import { mutate } from 'swr';
-import { useModal } from '@/shared/model';
 
 export function FolderItemMenu({ folderItem }: { folderItem: FolderItemType }) {
     const modal = useModal(`folderItem_edit_modal_${folderItem.id}`);
@@ -16,7 +18,7 @@ export function FolderItemMenu({ folderItem }: { folderItem: FolderItemType }) {
     const deleteItem = async () => {
         await axios.delete(`/api/folder/item/${folderItem.id}`);
         modal.close();
-        mutate(`/api/folder/${folderItem.folderId}`);
+        mutateFolder(folderItem.folderId);
     };
 
     return (

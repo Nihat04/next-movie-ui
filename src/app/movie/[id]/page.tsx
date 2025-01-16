@@ -7,8 +7,8 @@ import Image from 'next/image';
 
 import { FolderAddModal } from '@/entities/folder';
 import { ArtWork } from '@/entities/artWork';
-import fetcher from '@/shared/api/fetcher';
 import useSWR from 'swr';
+import { movieKey } from '@/shared/swr';
 
 export default function ArtWorkPage({
     params,
@@ -22,10 +22,7 @@ export default function ArtWorkPage({
         notFound();
     }
 
-    const { data, isLoading, error } = useSWR<ArtWork>(
-        `/api/kp/movie/${id}`,
-        fetcher
-    );
+    const { data, isLoading, error } = useSWR<ArtWork>(movieKey(numberId));
 
     if (error) {
         return (

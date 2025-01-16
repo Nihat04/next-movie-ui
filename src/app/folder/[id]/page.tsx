@@ -4,12 +4,12 @@ import useSWR from 'swr';
 import React, { use } from 'react';
 import { notFound } from 'next/navigation';
 
-import fetcher from '@/shared/api/fetcher';
 import Loader from '@/widgets/Loader/Loader';
 import { FolderItemMenu, FolderMenu, FolderType } from '@/entities/folder';
 import { Grid, VerticalPoster } from '@/shared/ui/Grid';
 
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import { folderKey } from '@/shared/swr';
 
 export default function FolderPage({
     params,
@@ -21,10 +21,7 @@ export default function FolderPage({
     if (!numberId) {
         notFound();
     }
-    const { data, isLoading, error } = useSWR<FolderType>(
-        `/api/folder/${id}`,
-        fetcher
-    );
+    const { data, isLoading, error } = useSWR<FolderType>(folderKey(numberId));
 
     if (error) {
         return (
