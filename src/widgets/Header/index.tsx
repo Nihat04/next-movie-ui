@@ -15,7 +15,7 @@ type Link = {
 
 const NAV_LINKS: Link[] = [
     { label: 'Кинопоиск', path: '/kp', icon: <LocalMoviesRoundedIcon /> },
-    { label: 'Рулетка', path: '/roulette', icon: <CasinoRoundedIcon /> },
+    { label: 'Рулетка', path: '/wheel', icon: <CasinoRoundedIcon /> },
     { label: 'Папки', path: '/folder', icon: <FolderIcon /> },
     { label: 'Профиль', path: '/profile', icon: <PersonRoundedIcon /> },
 ];

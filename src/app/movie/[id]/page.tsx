@@ -1,14 +1,16 @@
 'use client';
 
+import Image from 'next/image';
+import useSWR from 'swr';
+import Link from 'next/link';
 import React, { use } from 'react';
 import { notFound } from 'next/navigation';
 
-import Image from 'next/image';
-
 import { FolderAddModal } from '@/entities/folder';
 import { ArtWork } from '@/entities/artWork';
-import useSWR from 'swr';
 import { movieKey } from '@/shared/swr';
+
+import vkLogo from '@/shared/assets/svg/vk-logo.svg';
 
 export default function ArtWorkPage({
     params,
@@ -91,6 +93,13 @@ export default function ArtWorkPage({
                             </p>
                         </div>
                     </div>
+                </section>
+                <section>
+                    <Link
+                        href={`https://vkvideo.ru/?q=${data.name}&action=search`}
+                    >
+                        <Image width={'40'} src={vkLogo} alt="открыть в вк" />
+                    </Link>
                 </section>
             </main>
         </>
