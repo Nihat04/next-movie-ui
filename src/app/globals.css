@@ -29,7 +29,10 @@ body {
 }
 
 main {
+    display: flex;
     margin: 0.5rem 0.5rem 5rem;
+    flex-direction: column;
+    gap: 20px;
 }
 
 @media (min-width: 640px) {

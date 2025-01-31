@@ -13,15 +13,17 @@ type formProps = {
 };
 
 export function FolderCreateModal() {
-    const { register, handleSubmit } = useForm<formProps>();
+    const { register, handleSubmit, reset } = useForm<formProps>();
     const modal = useModal('create_modal');
 
-    const onSubmit = (data: formProps) => {
-        serverInstance
-            .post('/api/folder/', {
-                name: data.folderName,
-            })
-            .then(() => (mutateFolders(), modal.close()));
+    const onSubmit = async (data: formProps) => {
+        await serverInstance.post('/api/folder/', {
+            name: data.folderName,
+        });
+
+        mutateFolders();
+        modal.close();
+        reset({});
     };
 
     return (

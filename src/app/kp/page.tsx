@@ -8,11 +8,12 @@ import { KpSearch, Search } from '@/features/kinopoisk';
 import { KpMovieToArtWork } from '@/shared/DTO';
 
 import { Grid, VerticalPoster } from '@/shared/ui/Grid';
+import { kpKey } from '@/shared/swr/model/keys';
 
 export default function KinopoiskPage() {
     const [page, setPage] = useState<number>(1);
 
-    const { data, isLoading, mutate } = useSWR<Search>('/api/kp/movie/search');
+    const { data, isLoading, mutate } = useSWR<Search>(kpKey(page));
 
     const nextPage = () => {
         if (data && data.page < data.pages) {
@@ -54,8 +55,13 @@ export default function KinopoiskPage() {
 
     return (
         <main>
-            <section className="flex justify-center mb-10">
+            <section className="flex flex-col gap-2 items-center mb-10">
                 <KpSearch page={page} />
+                <select className="select select-bordered w-full max-w-xs">
+                    <option>По умолчанию</option>
+                    <option>По рейтингу</option>
+                    <option>По году выхода</option>
+                </select>
             </section>
             <section className="mb-20">
                 {!isLoading ? (

@@ -88,8 +88,7 @@ export default function ArtWorkPage({
                                 жанры: <b>{data.genres.join(', ')}</b>
                             </p>
                             <p>
-                                рейтинги: Кинопоиск - <b>{data.kpRating}</b> |
-                                KinoNext - <b>{data.knRating}</b>
+                                рейтинг Кинопоиск - <b>{data.kpRating}</b>
                             </p>
                         </div>
                     </div>

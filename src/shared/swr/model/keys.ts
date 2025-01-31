@@ -1,5 +1,3 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API;
-
 export const foldersKey = () => '/api/folder';
 
 export const folderKey = (id: number) => `/api/folder/${id}`;
@@ -11,3 +9,6 @@ export const searchKey = (
     page: number,
     pageLimit: number = 30
 ) => `/api/kp/movie/search?query=${search}&page=${page}&pageLimit=${pageLimit}`;
+
+export const kpKey = (page: number, pageLimit: number = 30) =>
+    `/api/kp/movie?page=${page}&pageLimit=${pageLimit}`;

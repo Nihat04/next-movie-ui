@@ -3,6 +3,8 @@ import { KpMovieToArtWork } from '@/shared/DTO';
 import { ArtWork } from '@/entities/artWork';
 
 export class Kinopoisk {
+    static async get() {}
+
     static async find(name: string, page: number, pageLimit: number = 30) {
         const response = await serverApi.get(`/api/kp/movie/search`, {
             params: { page, pageLimit, query: name },

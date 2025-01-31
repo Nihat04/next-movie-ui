@@ -6,6 +6,7 @@ import { mutate } from 'swr';
 import SearchIcon from '@mui/icons-material/Search';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import { Kinopoisk } from '../model';
+import { kpKey } from '@/shared/swr/model/keys';
 
 type formParams = {
     search: string;
@@ -18,7 +19,7 @@ export function KpSearch({ page }: { page: number }) {
 
     const onSubmit = async (data: formParams) => {
         const newData = Kinopoisk.find(data.search, page);
-        mutate(`/api/kp/movie/search`, newData, false);
+        mutate(kpKey(page), newData, false);
     };
 
     return (
