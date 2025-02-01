@@ -57,11 +57,6 @@ export default function KinopoiskPage() {
         <main>
             <section className="flex flex-col gap-2 items-center mb-10">
                 <KpSearch page={page} />
-                <select className="select select-bordered w-full max-w-xs">
-                    <option>По умолчанию</option>
-                    <option>По рейтингу</option>
-                    <option>По году выхода</option>
-                </select>
             </section>
             <section className="mb-20">
                 {!isLoading ? (

@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Drawer } from '@mui/material';
 import { mutate } from 'swr';
 
-import SearchIcon from '@mui/icons-material/Search';
-import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import { Kinopoisk } from '../model';
 import { kpKey } from '@/shared/swr/model/keys';
+
+import SearchIcon from '@mui/icons-material/Search';
 
 type formParams = {
     search: string;
@@ -14,8 +13,6 @@ type formParams = {
 
 export function KpSearch({ page }: { page: number }) {
     const { register, handleSubmit } = useForm<formParams>();
-
-    const [filtersMenu, setFiltersMenu] = useState(false);
 
     const onSubmit = async (data: formParams) => {
         const newData = Kinopoisk.find(data.search, page);
@@ -28,13 +25,6 @@ export function KpSearch({ page }: { page: number }) {
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex items-center gap-3"
             >
-                <button
-                    className="btn btn-circle btn-outline"
-                    onClick={() => setFiltersMenu(true)}
-                    type="button"
-                >
-                    <TuneRoundedIcon />
-                </button>
                 <input
                     {...register('search', { required: true })}
                     type="search"
@@ -44,16 +34,6 @@ export function KpSearch({ page }: { page: number }) {
                 <button className="btn btn-circle btn-outline">
                     <SearchIcon />
                 </button>
-                <Drawer
-                    open={filtersMenu}
-                    onClose={() => setFiltersMenu(false)}
-                >
-                    <div className="p-5 dark:bg-base-100 h-full shadow-inner">
-                        <button className="btn sm:btn-sm md:btn-md lg:btn-lg">
-                            Применить
-                        </button>
-                    </div>
-                </Drawer>
             </form>
         </div>
     );

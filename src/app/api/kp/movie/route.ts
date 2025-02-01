@@ -15,7 +15,11 @@ export async function GET(request: NextRequest) {
 
     try {
         const response = await await kinopoiskApi.get(`/movie`, {
-            params: { page, limit: pageLimit },
+            params: {
+                page,
+                limit: pageLimit,
+                'networks.items.name': 'Netflix',
+            },
         });
         return new Response(JSON.stringify(response.data), { status: 200 });
     } catch (error) {
