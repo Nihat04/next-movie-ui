@@ -23,7 +23,7 @@ export default function FoldersPage() {
             <main>
                 <section>
                     <div>
-                        <ul className="grid gap-5 list-none grid-cols-1 xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+                        <ul className="grid gap-5 list-none grid-cols-2 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3">
                             {data &&
                                 data.map((folder) => (
                                     <li key={folder.id} className="">

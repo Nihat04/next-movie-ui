@@ -95,7 +95,6 @@ export class Table<T> {
     }
 
     static async delete(tableName: string, id: number) {
-        console.log(`DELETE FROM ${tableName} WHERE id = ${id}`);
         await connection.query(`DELETE FROM ${tableName} WHERE id = ${id}`);
     }
 }

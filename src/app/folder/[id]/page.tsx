@@ -40,29 +40,27 @@ export default function FolderPage({
         );
 
     return (
-        <>
-            <main>
-                <section className="mb-10 flex justify-center sm:justify-start items-center gap-2">
-                    <h2 className="text-6xl font-bold">{data.name}</h2>
-                    <FolderMenu folderId={numberId} />
-                </section>
-                <section>
-                    {data.items && (
-                        <Grid>
-                            {data.items.map((item) => (
-                                <VerticalPoster
-                                    key={item.id}
-                                    href={`/movie/${item.artWork.id}`}
-                                    name={item.artWork.name}
-                                    cover={item.artWork.cover}
-                                >
-                                    <FolderItemMenu folderItem={item} />
-                                </VerticalPoster>
-                            ))}
-                        </Grid>
-                    )}
-                </section>
-            </main>
-        </>
+        <main>
+            <section className="mb-10 flex justify-center sm:justify-start items-center gap-2">
+                <h2 className="text-6xl font-bold">{data.name}</h2>
+                <FolderMenu folderId={numberId} />
+            </section>
+            <section>
+                {data.items && (
+                    <Grid>
+                        {data.items.map((item) => (
+                            <VerticalPoster
+                                key={item.id}
+                                href={`/movie/${item.artWork.id}`}
+                                name={item.artWork.name}
+                                cover={item.artWork.cover}
+                            >
+                                <FolderItemMenu folderItem={item} />
+                            </VerticalPoster>
+                        ))}
+                    </Grid>
+                )}
+            </section>
+        </main>
     );
 }

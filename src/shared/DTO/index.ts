@@ -1,1 +1,2 @@
-export * from './KpMovieToArtWork';
+export { KpMovieToArtWork } from './KpMovieToArtWork';
+export { ObjToSearchParams } from './ObjToSearchParams';

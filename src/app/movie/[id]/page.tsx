@@ -55,52 +55,47 @@ export default function ArtWorkPage({
         );
 
     return (
-        <>
-            <main>
-                <section>
-                    <div className="flex gap-5 flex-col md:flex-row">
-                        <div className="">
-                            <Image
-                                className="mb-3 w-full sm:w-auto"
-                                src={
-                                    data.cover ||
-                                    '/assets/img/not-found-light.png'
-                                }
-                                alt="постер фильма"
-                                width={300}
-                                height={100}
-                            />
-                            <FolderAddModal artWorkId={numberId} />
-                        </div>
-                        <div className="flex flex-col gap-2">
-                            <h2 className="text-3xl mb-3 text-center font-bold border-b-2 sm:text-left">
-                                {data.name}
-                            </h2>
-                            {data.description && (
-                                <div className="text-gray-400 p-2 bg-base-300 rounded-lg">
-                                    <p>{data.description}</p>
-                                </div>
-                            )}
-                            <p>
-                                год выхода: <b>{data.year}</b>
-                            </p>
-                            <p>
-                                жанры: <b>{data.genres.join(', ')}</b>
-                            </p>
-                            <p>
-                                рейтинг Кинопоиск - <b>{data.kpRating}</b>
-                            </p>
-                        </div>
+        <main>
+            <section>
+                <div className="flex gap-5 flex-col md:flex-row">
+                    <div className="">
+                        <Image
+                            className="mb-3 w-full sm:w-auto"
+                            src={
+                                data.cover || '/assets/img/not-found-light.png'
+                            }
+                            alt="постер фильма"
+                            width={300}
+                            height={100}
+                        />
+                        <FolderAddModal artWorkId={numberId} />
                     </div>
-                </section>
-                <section>
-                    <Link
-                        href={`https://vkvideo.ru/?q=${data.name}&action=search`}
-                    >
-                        <Image width={'40'} src={vkLogo} alt="открыть в вк" />
-                    </Link>
-                </section>
-            </main>
-        </>
+                    <div className="flex flex-col gap-2">
+                        <h2 className="text-3xl mb-3 text-center font-bold border-b-2 sm:text-left">
+                            {data.name}
+                        </h2>
+                        {data.description && (
+                            <div className="text-gray-400 p-2 bg-base-300 rounded-lg">
+                                <p>{data.description}</p>
+                            </div>
+                        )}
+                        <p>
+                            год выхода: <b>{data.year}</b>
+                        </p>
+                        <p>
+                            жанры: <b>{data.genres.join(', ')}</b>
+                        </p>
+                        <p>
+                            рейтинг Кинопоиск - <b>{data.kpRating}</b>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <Link href={`https://vkvideo.ru/?q=${data.name}&action=search`}>
+                    <Image width={'40'} src={vkLogo} alt="открыть в вк" />
+                </Link>
+            </section>
+        </main>
     );
 }

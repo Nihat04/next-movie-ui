@@ -13,13 +13,20 @@ export async function GET(request: NextRequest) {
         );
     }
 
+    const params: Record<string, string | null> = {
+        page,
+        limit: pageLimit,
+    };
+
+    searchParams.forEach((value, key) => {
+        if (key !== 'page' && key !== 'pageLimit') {
+            params[key] = value;
+        }
+    });
+
     try {
-        const response = await await kinopoiskApi.get(`/movie`, {
-            params: {
-                page,
-                limit: pageLimit,
-                'networks.items.name': 'Netflix',
-            },
+        const response = await kinopoiskApi.get(`/movie`, {
+            params,
         });
         return new Response(JSON.stringify(response.data), { status: 200 });
     } catch (error) {

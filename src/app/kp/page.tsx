@@ -1,30 +1,52 @@
 'use client';
 
 import useSWR from 'swr';
-import { useState } from 'react';
+import { use, useState } from 'react';
 
 import Loader from '@/widgets/Loader/Loader';
 import { KpSearch, Search } from '@/features/kinopoisk';
-import { KpMovieToArtWork } from '@/shared/DTO';
 
-import { Grid, VerticalPoster } from '@/shared/ui/Grid';
-import { kpKey } from '@/shared/swr/model/keys';
+import { kpKey, searchKey } from '@/shared/swr/model/keys';
+import { KpMoviesGrid } from '@/features/kinopoisk/ui/KpMoviesGrid';
+import { useRouter } from 'next/navigation';
+import { ObjToSearchParams } from '@/shared/DTO';
 
-export default function KinopoiskPage() {
-    const [page, setPage] = useState<number>(1);
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
-    const { data, isLoading, mutate } = useSWR<Search>(kpKey(page));
+export default function KinopoiskPage({
+    searchParams,
+}: {
+    searchParams: SearchParams;
+}) {
+    const [page, setPage] = useState<number>(4);
+    const searchParamsUse = use(searchParams);
+    const router = useRouter();
+
+    const { data, isLoading, mutate } = useSWR<Search>(
+        searchParamsUse['q']
+            ? searchKey({ page, query: searchParamsUse['q'] as string })
+            : kpKey({ page, filters: searchParamsUse })
+    );
+
+    const changePage = (value: number) => {
+        setPage(value);
+        const searchParams = ObjToSearchParams({
+            ...searchParamsUse,
+            page: value.toString(),
+        });
+        router.push(`?${searchParams}`);
+    };
 
     const nextPage = () => {
         if (data && data.page < data.pages) {
-            setPage(data.page + 1);
+            changePage(data.page + 1);
             mutate();
         }
     };
 
     const prevPage = () => {
         if (data && data.page < data.pages) {
-            setPage(data.page - 1);
+            changePage(data.page - 1);
             mutate();
         }
     };
@@ -63,22 +85,7 @@ export default function KinopoiskPage() {
                     <>
                         {data && data.docs && (
                             <>
-                                <div className="mb-20">
-                                    <Grid>
-                                        {data.docs.map((movie) => {
-                                            const artWork =
-                                                KpMovieToArtWork(movie);
-                                            return (
-                                                <VerticalPoster
-                                                    key={artWork.id}
-                                                    href={`/movie/${artWork.id}`}
-                                                    name={artWork.name}
-                                                    cover={artWork.cover}
-                                                />
-                                            );
-                                        })}
-                                    </Grid>
-                                </div>
+                                <KpMoviesGrid movies={data.docs} />
                                 {paginator()}
                             </>
                         )}

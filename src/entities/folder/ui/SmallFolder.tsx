@@ -7,7 +7,7 @@ import Link from 'next/link';
 export function SmallFolder({ folder }: { folder: FolderType }) {
     return (
         <Link href={`/folder/${folder.id}`}>
-            <div className="btn w-full h-40 p-5 bg-base-300 rounded-lg shadow-xl">
+            <div className="btn w-full h-full p-5 bg-base-300 rounded-lg shadow-xl">
                 <div className=" w-full h-20 flex justify-center">
                     <FolderOutlinedIcon
                         sx={{ width: '100%', height: '100%' }}
