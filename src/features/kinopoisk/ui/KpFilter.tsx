@@ -4,39 +4,7 @@ import { Drawer } from '@mui/material';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import { useRouter } from 'next/navigation';
 import { ObjToSearchParams } from '@/shared/DTO';
-
-type filter = {
-    name: string;
-    title: string;
-    type: 'radio' | 'checkbox';
-    values: filterValue[];
-};
-
-type filterValue = {
-    name: string;
-    label?: string;
-};
-
-const FILTERS: filter[] = [
-    {
-        name: 'genres.name',
-        title: 'Жанры',
-        type: 'checkbox',
-        values: [{ name: 'драма' }, { name: 'хоррор' }],
-    },
-    {
-        name: 'type',
-        title: 'Тип',
-        type: 'checkbox',
-        values: [
-            { name: 'movie' },
-            { name: 'tv-series' },
-            { name: 'cartoon' },
-            { name: 'animated-series' },
-            { name: 'anime' },
-        ],
-    },
-];
+import { FILTERS } from '../model/filter';
 
 export function KpFilter() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -75,9 +43,20 @@ export function KpFilter() {
             >
                 <TuneRoundedIcon />
             </button>
-            <Drawer open={menuOpen} onClose={() => setMenuOpen(false)}>
-                <div className="p-5 dark:bg-base-100 h-full shadow-inner">
-                    <form onSubmit={onSubmit}>
+            <Drawer
+                open={menuOpen}
+                onClose={() => setMenuOpen(false)}
+                sx={{
+                    '& .MuiDrawer-paper': {
+                        maxWidth: '70vw',
+                        '@media (prefers-color-scheme: dark)': {
+                            backgroundColor: '#1f2937',
+                        },
+                    },
+                }}
+            >
+                <div className="p-5">
+                    <form onSubmit={onSubmit} className="mb-10">
                         <div className="mb-4 flex flex-col gap-3">
                             {FILTERS.map((filter, index) => (
                                 <div
@@ -92,7 +71,7 @@ export function KpFilter() {
                                         {filter.values.map((value, index) => (
                                             <label
                                                 key={index}
-                                                className="label cursor-pointer gap-1"
+                                                className="label cursor-pointer gap-3 justify-start"
                                             >
                                                 <input
                                                     name={filter.name}
