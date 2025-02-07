@@ -18,8 +18,8 @@ export default function KinopoiskPage({
 }: {
     searchParams: SearchParams;
 }) {
-    const [page, setPage] = useState<number>(4);
     const searchParamsUse = use(searchParams);
+    const [page, setPage] = useState<number>(1);
     const router = useRouter();
 
     const { data, isLoading, mutate } = useSWR<Search>(
